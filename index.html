@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đồng Hồ Đếm Ngược Mượt</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+      integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+
+  <body class="bg-white">
+    <div
+      class="h-[120px] bg-[#8e0009] text-center flex items-center justify-center text-white text-[26px]"
+    >
+      HỌC VIỆN TỬ VI VIỆT NAM
+    </div>
+    <div
+      class="md:flex px-4 sm:px-8 md:px-12 lg:px-[200px] 2xl:px-[400px] justify-center"
+    >
+      <div class="mt-4 mr-20">
+        <button
+          id="btn-webtuvi"
+          class="p-4 text-center font-semibold cursor-pointer w-[150px] bg-[#f7f3e4] border-1 border-[#fcb900] h-[62px]"
+          style="box-shadow: 2px 2px"
+        >
+          Lập lá số tử vi
+        </button>
+        <div class="mt-4"><img src="./assets/Group-9377-1.png" /></div>
+      </div>
+      <div class="ml-2 md:ml-20">
+        <div class="mt-20"><img src="./assets/Group-9379.png" /></div>
+        <ul class="list-disc ml-5">
+          <li class="leading-10">Nguyên lý an sao Tử Vi</li>
+          <li class="leading-10">
+            Ý nghĩa các Cung, ngôi sao trên Lá số Tử vi
+          </li>
+          <li class="leading-10">
+            Hiểu mình hiểu người, năng khiếu sở trường …
+          </li>
+          <li class="leading-10">Công danh, tài lộc, tình duyên…</li>
+          <li class="leading-10">
+            Cộng tác viên kiếm tiền, gia tăng thu nhập…
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="md:flex px-4 sm:px-8 md:px-12 lg:px-[200px] 2xl:px-[400px]">
+      <div class="sm:w-1/2">
+        <div class="text-center mb-4 mt-4 font-semibold">
+          thời gian đăng ký còn
+        </div>
+        <div
+          class="flex gap-4 justify-center text-center text-black font-bold text-xl sm:text-2xl md:text-3xl"
+        >
+          <!-- Ngày -->
+          <div class="relative w-[75px] sm:w-[85px] md:w-[95px]">
+            <svg width="100" height="100" class="absolute top-0 left-0">
+              <circle
+                cx="40"
+                cy="40"
+                r="36"
+                fill="none"
+                stroke="#ffbb33"
+                stroke-width="6"
+                stroke-dasharray="228.9"
+                stroke-dashoffset="0"
+                stroke-linecap="round"
+                id="circle-days"
+              ></circle>
+            </svg>
+            <div class="text-center mt-[6px] sm:mr-[10px]">
+              <div id="days" class="relative text-3xl sm:text-4xl z-10">7</div>
+              <div class="text-xs sm:text-sm">NGÀY</div>
+            </div>
+          </div>
+
+          <!-- Giờ -->
+          <div class="relative w-[75px] sm:w-[85px] md:w-[95px]">
+            <svg width="100" height="100" class="absolute top-0 left-0">
+              <circle
+                cx="40"
+                cy="40"
+                r="36"
+                fill="none"
+                stroke="#66b3ff"
+                stroke-width="6"
+                stroke-dasharray="228.9"
+                stroke-dashoffset="0"
+                stroke-linecap="round"
+                id="circle-hours"
+              ></circle>
+            </svg>
+            <div class="text-center mt-[6px] sm:mr-[10px]">
+              <div id="hours" class="relative text-3xl sm:text-4xl z-10">0</div>
+              <div class="text-xs sm:text-sm">GIỜ</div>
+            </div>
+          </div>
+
+          <!-- Phút -->
+          <div class="relative w-[75px] sm:w-[85px] md:w-[95px]">
+            <svg width="100" height="100" class="absolute top-0 left-0">
+              <circle
+                cx="40"
+                cy="40"
+                r="36"
+                fill="none"
+                stroke="#99ff99"
+                stroke-width="6"
+                stroke-dasharray="220.9"
+                stroke-dashoffset="0"
+                stroke-linecap="round"
+                id="circle-minutes"
+              ></circle>
+            </svg>
+            <div class="text-center mt-[6px] sm:mr-[10px]">
+              <div id="minutes" class="relative text-3xl sm:text-4xl z-10">
+                0
+              </div>
+              <div class="text-xs sm:text-sm">PHÚT</div>
+            </div>
+          </div>
+
+          <!-- Giây -->
+          <div class="relative w-[75px] sm:w-[85px] md:w-[95px]">
+            <svg width="100" height="100" class="absolute top-0 left-0">
+              <circle
+                cx="40"
+                cy="40"
+                r="36"
+                fill="none"
+                stroke="#ff6961"
+                stroke-width="6"
+                stroke-dasharray="228.9"
+                stroke-dashoffset="0"
+                stroke-linecap="round"
+                id="circle-seconds"
+              ></circle>
+            </svg>
+            <div class="text-center mt-[6px] sm:mr-[10px]">
+              <div id="seconds" class="relative text-3xl sm:text-4xl z-10">
+                0
+              </div>
+              <div class="text-xs sm:text-sm">GIÂY</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ml-2 md:ml-20 sm:w-1/2">
+        <div class="text-[#da0015] mt-8 sm:mt-1 font-semibold">
+          TẢI APP VÀ ĐĂNG KÝ TẠI ĐÂY
+        </div>
+        <div class="flex mb-2">
+          <a
+            class="mr-2"
+            href="https://play.google.com/store/apps/details?id=com.huyen_hoc"
+            ><img src="./assets/GooglePlay.png" class="w-[150px] h-[54px]"
+          /></a>
+
+          <a href="https://testflight.apple.com/join/rFMlokwB"
+            ><img src="./assets/AppStore.png" class="w-[150px] h-[54px]"
+          /></a>
+        </div>
+        <a><img src="./assets/zalo-support.png" /></a>
+      </div>
+    </div>
+    <div
+      class="md:flex px-4 sm:px-8 md:px-12 lg:px-[200px] 2xl:px-[400px] mt-20"
+    >
+      <div class="mt-4 text-white sm:w-[50%] p-1 ml-2">
+        <div
+          class="text-white p-1 text-center font-semibold text-[26px] bg-[#41b237] h-[50px]"
+        >
+          thu nhập cao không cần vốn
+        </div>
+        \
+        <img src="./assets/banner.png" />
+        <div class="flex mb-2">
+          <a
+            class="mr-2"
+            href="https://play.google.com/store/apps/details?id=com.huyen_hoc"
+            ><img class="w-[150px] h-[54px]" src="./assets/GooglePlay.png"
+          /></a>
+
+          <a href="https://testflight.apple.com/join/rFMlokwB"
+            ><img class="w-[150px] h-[54px]" src="./assets/AppStore.png"
+          /></a>
+        </div>
+      </div>
+      <div class="mt-4 ml-2 md:ml-20 sm:w-[50%]">
+        <div class="w-[390px] h-[219px]">
+          <iframe
+            class="w-full h-full"
+            src="https://www.youtube.com/embed/IS-Y0Ow8Kno"
+            title="Hướng dẫn cài Học Viện Tử Vi"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
+    <div
+      class="px-4 sm:px-8 md:px-12 lg:px-[200px] 2xl:px-[400px] mb-4 flex justify-center mt-5"
+    >
+      <table>
+        <tr>
+          <td>
+            <h2 class="text-red-600 text-2xl font-bold mb-4">
+              THÔNG TIN LIÊN HỆ
+            </h2>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-red-600">
+            <i class="fab fa-facebook-square text-2xl"></i>
+            <a
+              href="https://www.facebook.com/TrangSucQuaTangPhongThuy?mibextid=LQQJ4d"
+              target="_blank"
+              class="hover:underline text-[#f9bc9f] font-medium"
+            >
+              FACEBOOK.COM/HOCVIENTUVI
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-red-600">
+            <i class="fab fa-facebook-square text-2xl"></i>
+            <a
+              href="https://www.facebook.com/libertyhanoi?mibextid=LQQJ4d"
+              target="_blank"
+              class="hover:underline text-[#f9bc9f] font-medium"
+            >
+              FACEBOOK.COM/GIANGVIENTUVI
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-red-600">
+            <i class="fas fa-globe text-2xl"></i>
+            <a
+              href="https://www.tiktok.com/@hocvientuvi"
+              target="_blank"
+              class="hover:underline text-[#f9bc9f] font-medium"
+            >
+              TIKTOK.COM/@HOCTUVI
+            </a>
+          </td>
+        </tr>
+        <tr>
+          <td class="text-red-600">
+            <i class="fas fa-phone-alt text-2xl"></i>
+            <span class="text-[#f9bc9f] font-medium">0888 569 855</span>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <script>
+      const btnWebTuVi = document.getElementById("btn-webtuvi");
+      btnWebTuVi.onclick = function () {
+        window.open("https://tuvi.hocvientuvi.com/", "_blank");
+      };
+      // Tổng thời gian ban đầu: 7 ngày tính theo giây
+      const initialTotalSeconds = 7 * 24 * 60 * 60;
+      // Lấy thời điểm bắt đầu bằng performance.now() (đơn vị: ms)
+      let startTime = performance.now();
+
+      // Lấy các phần tử DOM cần thiết
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+
+      const circleDays = document.getElementById("circle-days");
+      const circleHours = document.getElementById("circle-hours");
+      const circleMinutes = document.getElementById("circle-minutes");
+      const circleSeconds = document.getElementById("circle-seconds");
+
+      function updateTimer() {
+        // Tính thời gian đã trôi qua (đơn vị: giây)
+        let elapsed = (performance.now() - startTime) / 1000;
+        let remainingSeconds = initialTotalSeconds - elapsed;
+
+        // Nếu hết thời gian, reset lại đồng hồ (hoặc bạn có thể dừng lại)
+        if (remainingSeconds <= 0) {
+          startTime = performance.now();
+          remainingSeconds = initialTotalSeconds;
+        }
+
+        // Tính toán ngày, giờ, phút, giây (làm tròn xuống)
+        let days = Math.floor(remainingSeconds / (24 * 60 * 60));
+        let hours = Math.floor((remainingSeconds % (24 * 60 * 60)) / (60 * 60));
+        let minutes = Math.floor((remainingSeconds % (60 * 60)) / 60);
+        let seconds = Math.floor(remainingSeconds % 60);
+
+        // Cập nhật số liệu hiển thị
+        daysEl.textContent = days;
+        hoursEl.textContent = hours;
+        minutesEl.textContent = minutes;
+        secondsEl.textContent = seconds;
+
+        // Tính phần trăm còn lại cho mỗi đơn vị thời gian để cập nhật vòng tròn:
+        let percentDays = remainingSeconds / initialTotalSeconds;
+        let percentHours = (remainingSeconds % (24 * 60 * 60)) / (24 * 60 * 60);
+        let percentMinutes = (remainingSeconds % (60 * 60)) / (60 * 60);
+        let percentSeconds = (remainingSeconds % 60) / 60;
+
+        // Cập nhật strokeDashoffset tương ứng
+        circleDays.style.strokeDashoffset = 228.9 * (1 - percentDays);
+        circleHours.style.strokeDashoffset = 228.9 * (1 - percentHours);
+        circleMinutes.style.strokeDashoffset = 228.9 * (1 - percentMinutes);
+        circleSeconds.style.strokeDashoffset = 228.9 * (1 - percentSeconds);
+
+        // Yêu cầu gọi lại hàm updateTimer cho frame kế tiếp
+        requestAnimationFrame(updateTimer);
+      }
+
+      // Bắt đầu vòng lặp cập nhật
+      requestAnimationFrame(updateTimer);
+    </script>
+  </body>
+</html>
