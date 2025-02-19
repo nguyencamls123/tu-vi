@@ -269,61 +269,67 @@
       };
       // Tổng thời gian ban đầu: 7 ngày tính theo giây
       const initialTotalSeconds = 7 * 24 * 60 * 60;
-      // Lấy thời điểm bắt đầu bằng performance.now() (đơn vị: ms)
-      let startTime = performance.now();
+const now = Math.floor(Date.now() / 1000); // Lấy thời gian hiện tại tính theo giây
 
-      // Lấy các phần tử DOM cần thiết
-      const daysEl = document.getElementById("days");
-      const hoursEl = document.getElementById("hours");
-      const minutesEl = document.getElementById("minutes");
-      const secondsEl = document.getElementById("seconds");
+// Kiểm tra xem đã có endTime trong localStorage chưa
+let endTime = localStorage.getItem("countdownEndTime");
+if (!endTime) {
+  endTime = now + initialTotalSeconds; // Nếu chưa có, đặt endTime là 7 ngày sau
+  localStorage.setItem("countdownEndTime", endTime);
+}
 
-      const circleDays = document.getElementById("circle-days");
-      const circleHours = document.getElementById("circle-hours");
-      const circleMinutes = document.getElementById("circle-minutes");
-      const circleSeconds = document.getElementById("circle-seconds");
+// Lấy các phần tử DOM
+const daysEl = document.getElementById("days");
+const hoursEl = document.getElementById("hours");
+const minutesEl = document.getElementById("minutes");
+const secondsEl = document.getElementById("seconds");
 
-      function updateTimer() {
-        // Tính thời gian đã trôi qua (đơn vị: giây)
-        let elapsed = (performance.now() - startTime) / 1000;
-        let remainingSeconds = initialTotalSeconds - elapsed;
+const circleDays = document.getElementById("circle-days");
+const circleHours = document.getElementById("circle-hours");
+const circleMinutes = document.getElementById("circle-minutes");
+const circleSeconds = document.getElementById("circle-seconds");
 
-        // Nếu hết thời gian, reset lại đồng hồ (hoặc bạn có thể dừng lại)
-        if (remainingSeconds <= 0) {
-          startTime = performance.now();
-          remainingSeconds = initialTotalSeconds;
-        }
+function updateTimer() {
+  const now = Math.floor(Date.now() / 1000);
+  let remainingSeconds = endTime - now;
 
-        // Tính toán ngày, giờ, phút, giây (làm tròn xuống)
-        let days = Math.floor(remainingSeconds / (24 * 60 * 60));
-        let hours = Math.floor((remainingSeconds % (24 * 60 * 60)) / (60 * 60));
-        let minutes = Math.floor((remainingSeconds % (60 * 60)) / 60);
-        let seconds = Math.floor(remainingSeconds % 60);
+  if (remainingSeconds <= 0) {
+    // Nếu hết thời gian, đặt lại endTime
+    endTime = Math.floor(Date.now() / 1000) + initialTotalSeconds;
+    localStorage.setItem("countdownEndTime", endTime);
+    remainingSeconds = initialTotalSeconds;
+  }
 
-        // Cập nhật số liệu hiển thị
-        daysEl.textContent = days;
-        hoursEl.textContent = hours;
-        minutesEl.textContent = minutes;
-        secondsEl.textContent = seconds;
+  // Tính toán ngày, giờ, phút, giây
+  let days = Math.floor(remainingSeconds / (24 * 60 * 60));
+  let hours = Math.floor((remainingSeconds % (24 * 60 * 60)) / (60 * 60));
+  let minutes = Math.floor((remainingSeconds % (60 * 60)) / 60);
+  let seconds = Math.floor(remainingSeconds % 60);
 
-        // Tính phần trăm còn lại cho mỗi đơn vị thời gian để cập nhật vòng tròn:
-        let percentDays = remainingSeconds / initialTotalSeconds;
-        let percentHours = (remainingSeconds % (24 * 60 * 60)) / (24 * 60 * 60);
-        let percentMinutes = (remainingSeconds % (60 * 60)) / (60 * 60);
-        let percentSeconds = (remainingSeconds % 60) / 60;
+  // Cập nhật số liệu hiển thị
+  daysEl.textContent = days;
+  hoursEl.textContent = hours;
+  minutesEl.textContent = minutes;
+  secondsEl.textContent = seconds;
 
-        // Cập nhật strokeDashoffset tương ứng
-        circleDays.style.strokeDashoffset = 228.9 * (1 - percentDays);
-        circleHours.style.strokeDashoffset = 228.9 * (1 - percentHours);
-        circleMinutes.style.strokeDashoffset = 228.9 * (1 - percentMinutes);
-        circleSeconds.style.strokeDashoffset = 228.9 * (1 - percentSeconds);
+  // Cập nhật vòng tròn
+  let percentDays = remainingSeconds / initialTotalSeconds;
+  let percentHours = (remainingSeconds % (24 * 60 * 60)) / (24 * 60 * 60);
+  let percentMinutes = (remainingSeconds % (60 * 60)) / (60 * 60);
+  let percentSeconds = (remainingSeconds % 60) / 60;
 
-        // Yêu cầu gọi lại hàm updateTimer cho frame kế tiếp
-        requestAnimationFrame(updateTimer);
-      }
+  circleDays.style.strokeDashoffset = 228.9 * (1 - percentDays);
+  circleHours.style.strokeDashoffset = 228.9 * (1 - percentHours);
+  circleMinutes.style.strokeDashoffset = 228.9 * (1 - percentMinutes);
+  circleSeconds.style.strokeDashoffset = 228.9 * (1 - percentSeconds);
 
-      // Bắt đầu vòng lặp cập nhật
-      requestAnimationFrame(updateTimer);
+  // Gọi lại hàm mỗi giây
+  setTimeout(updateTimer, 1000);
+}
+
+// Bắt đầu đếm ngược
+updateTimer();
+
     </script>
   </body>
 </html>
