@@ -3,7 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Đồng Hồ Đếm Ngược Mượt</title>
+    <title>Học viện tử vi</title>
+    <link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+
     <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <link
       rel="stylesheet"
@@ -33,7 +35,7 @@
         </button>
         <div class="mt-4"><img class="w-full" src="./assets/Group-9377-1.png" /></div>
       </div>
-      <div class="ml-2 md:ml-20">
+      <div class="md:ml-20">
         <div class="mt-20"><img src="./assets/Group-9379.png" /></div>
         <ul class="list-disc ml-5">
           <li class="leading-10">Nguyên lý an sao Tử Vi</li>
@@ -152,7 +154,7 @@
           </div>
         </div>
       </div>
-      <div class="ml-2 md:ml-20 sm:w-1/2">
+      <div class="md:ml-20 sm:w-1/2">
         <div class="text-[#da0015] mt-8 sm:mt-1 font-semibold">
           TẢI APP VÀ ĐĂNG KÝ TẠI ĐÂY
         </div>
@@ -171,11 +173,11 @@
       </div>
     </div>
     <div
-      class="md:flex px-4 sm:px-8 md:px-12 lg:px-[200px] 2xl:px-[400px] mt-20"
+      class="md:flex px-4 sm:px-8 md:px-12 lg:px-[200px] 2xl:px-[400px] sm:mt-20"
     >
-      <div class="mt-4 text-white sm:w-[50%] p-1 ml-2">
+      <div class="mt-4 text-white sm:w-[50%] p-1">
         <div
-          class="text-white p-1 text-center font-semibold text-[26px] bg-[#41b237] h-[50px] up"
+          class="text-white p-1 text-center font-semibold text-[26px] bg-[#41b237]"
         >
           THU NHẬP CAO KHÔNG CẦN VỐN
         </div>
@@ -193,8 +195,8 @@
           /></a>
         </div>
       </div>
-      <div class="mt-4 ml-2 md:ml-20 sm:w-[50%]">
-        <div class="w-[390px] h-[219px]">
+      <div class="mt-4 md:ml-20 sm:w-[50%] justify-center">
+        <div class="w-auto h-[219px]">
           <iframe
             class="w-full h-full"
             src="https://www.youtube.com/embed/IS-Y0Ow8Kno"
@@ -269,10 +271,16 @@
       };
       // Tổng thời gian ban đầu: 7 ngày tính theo giây
       const initialTotalSeconds = 7 * 24 * 60 * 60;
-      // Lấy thời điểm bắt đầu bằng performance.now() (đơn vị: ms)
-      let startTime = performance.now();
+      const now = Math.floor(Date.now() / 1000); // Lấy thời gian hiện tại tính theo giây
 
-      // Lấy các phần tử DOM cần thiết
+      // Kiểm tra xem đã có endTime trong localStorage chưa
+      let endTime = localStorage.getItem("countdownEndTime");
+      if (!endTime) {
+        endTime = now + initialTotalSeconds; // Nếu chưa có, đặt endTime là 7 ngày sau
+        localStorage.setItem("countdownEndTime", endTime);
+      }
+
+      // Lấy các phần tử DOM
       const daysEl = document.getElementById("days");
       const hoursEl = document.getElementById("hours");
       const minutesEl = document.getElementById("minutes");
@@ -284,17 +292,17 @@
       const circleSeconds = document.getElementById("circle-seconds");
 
       function updateTimer() {
-        // Tính thời gian đã trôi qua (đơn vị: giây)
-        let elapsed = (performance.now() - startTime) / 1000;
-        let remainingSeconds = initialTotalSeconds - elapsed;
+        const now = Math.floor(Date.now() / 1000);
+        let remainingSeconds = endTime - now;
 
-        // Nếu hết thời gian, reset lại đồng hồ (hoặc bạn có thể dừng lại)
         if (remainingSeconds <= 0) {
-          startTime = performance.now();
+          // Nếu hết thời gian, đặt lại endTime
+          endTime = Math.floor(Date.now() / 1000) + initialTotalSeconds;
+          localStorage.setItem("countdownEndTime", endTime);
           remainingSeconds = initialTotalSeconds;
         }
 
-        // Tính toán ngày, giờ, phút, giây (làm tròn xuống)
+        // Tính toán ngày, giờ, phút, giây
         let days = Math.floor(remainingSeconds / (24 * 60 * 60));
         let hours = Math.floor((remainingSeconds % (24 * 60 * 60)) / (60 * 60));
         let minutes = Math.floor((remainingSeconds % (60 * 60)) / 60);
@@ -306,24 +314,23 @@
         minutesEl.textContent = minutes;
         secondsEl.textContent = seconds;
 
-        // Tính phần trăm còn lại cho mỗi đơn vị thời gian để cập nhật vòng tròn:
+        // Cập nhật vòng tròn
         let percentDays = remainingSeconds / initialTotalSeconds;
         let percentHours = (remainingSeconds % (24 * 60 * 60)) / (24 * 60 * 60);
         let percentMinutes = (remainingSeconds % (60 * 60)) / (60 * 60);
         let percentSeconds = (remainingSeconds % 60) / 60;
 
-        // Cập nhật strokeDashoffset tương ứng
         circleDays.style.strokeDashoffset = 228.9 * (1 - percentDays);
         circleHours.style.strokeDashoffset = 228.9 * (1 - percentHours);
         circleMinutes.style.strokeDashoffset = 228.9 * (1 - percentMinutes);
         circleSeconds.style.strokeDashoffset = 228.9 * (1 - percentSeconds);
 
-        // Yêu cầu gọi lại hàm updateTimer cho frame kế tiếp
-        requestAnimationFrame(updateTimer);
+        // Gọi lại hàm mỗi giây
+        setTimeout(updateTimer, 1000);
       }
 
-      // Bắt đầu vòng lặp cập nhật
-      requestAnimationFrame(updateTimer);
+      // Bắt đầu đếm ngược
+      updateTimer();
     </script>
   </body>
 </html>
